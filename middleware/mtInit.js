@@ -1,20 +1,19 @@
 /**
  * 处理页面初始化请求的中间件，对应API：/mtapi/init
  */
-const fs = require('fs')
-const path = require('path')
-const filePath = path.join(__dirname, '../data/userdata.txt')
+const { initList } = require('../database/handler/itemHandler')
 
 const mtInit = async function (ctx, next) {
     ctx.response.status = 200
-    let data = ''
-    try {
-        const content = fs.readFileSync(filePath, 'utf-8')
-        data = `[${content}]`
-    } catch (err) {
-        console.error(err)
+    let itemList = undefined
+    await initList().then( (res) => {
+        itemList = res
+    })
+    if (itemList) {
+        ctx.response.body = itemList
+    } else {
+        console.error('数据库查找失败！')
     }
-    ctx.response.body = data
     await next()
 }
 

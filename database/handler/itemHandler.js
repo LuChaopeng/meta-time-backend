@@ -15,4 +15,21 @@ const addItem = function (doc) {
         })
 }
 
-module.exports = { addItem }
+/**
+ * 读数据库，初始化时间轴
+ * @returns {Promise<undefined>}
+ * async返回一个Promise对象，它return的值会成为该Promise对象then()中回调函数的参数
+ */
+const initList = async function () {
+    let findDoc = undefined
+    await Item.find({},{_id:0, __v:0})
+        .then((doc) => {
+            findDoc = doc
+        })
+        .catch(err => {
+            console.error(err)
+        })
+    return findDoc
+}
+
+module.exports = { addItem, initList }
