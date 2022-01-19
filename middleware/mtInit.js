@@ -5,8 +5,9 @@ const { initList } = require('../database/handler/itemHandler')
 
 const mtInit = async function (ctx, next) {
     ctx.response.status = 200
+    console.log('接口/mtapi/init被成功访问')
     let itemList = undefined
-    await initList().then( (res) => {
+    await initList(global.UID).then( (res) => {
         itemList = res
     })
     if (itemList) {
