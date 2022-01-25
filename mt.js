@@ -4,12 +4,18 @@ const Router = require('koa-router')
 //Koa中间件，解析Post请求的参数
 const bodyParser = require('koa-bodyparser')
 const { usrAC } = require('./database/handler/userHandler')
+const cors = require('koa2-cors')
 
 const app = new Koa()
 const router = new Router()
 
 global.UID = undefined
 
+// 配置允许跨域，credentials是允许客户端发送cookie
+app.use(cors({
+    origin: 'http://111.229.176.245',
+    credentials: true
+}))
 app.use(bodyParser())
 
 /**
