@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="44bce6ca-c5db-4533-9b93-08aea8b661ef" name="腾讯云MetaTime后端" url="">
+        <fileTransfer rootFolder="/usr/server" accessType="SFTP" host="111.229.176.245" port="22" sshConfigId="6303bda6-92a8-45d2-8636-d5bc34b4408b" sshConfig="ubuntu@111.229.176.245:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

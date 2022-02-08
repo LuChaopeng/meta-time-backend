@@ -5,8 +5,8 @@ const {addItem} = require('../database/handler/itemHandler')
 
 const mtSubmitTag = async function (ctx, next) {
     ctx.response.status = 200
-    addItem(ctx.request.body)
-    ctx.response.body = 'submit success'
+    const newID = await addItem(ctx.request.body)
+    ctx.response.body = JSON.stringify({_id: newID})
     await next()
 }
 
