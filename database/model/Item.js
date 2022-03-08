@@ -8,7 +8,8 @@ const TimeListItemSchema = new Schema({
     'uid': String,
     'activity': String,
     'description': String,
-    'timestamp': Date
+    'timestamp': Date,
+    'picture': String,
 })
 
 const Item = mongoose.model('Item', TimeListItemSchema)

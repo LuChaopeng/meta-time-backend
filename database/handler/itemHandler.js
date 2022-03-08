@@ -7,11 +7,13 @@ const Item = require('../model/Item')
 const addItem = async function (doc) {
     doc.uid = global.UID
     delete doc._id
+    doc.picture = doc.picture.substring(23)
     const item = new Item(doc)
     let newID = undefined
     await item.save()
         .then((res) => {
             newID = res._id
+            doc.picture = doc.picture.substring(0,20)
             console.log(`数据库：已存入${JSON.stringify(doc)}`)
         })
         .catch((err) => {
@@ -27,6 +29,7 @@ const addItem = async function (doc) {
 const delItem = async function (id) {
     Item.findOne({_id: id})
         .then((res) => {
+            res.picture = res.picture.substring(0,20)
             console.log(`数据库：${JSON.stringify(res)}将被删除`)
         })
         .catch((e) => {
@@ -45,7 +48,7 @@ const delItem = async function (id) {
  */
 const initList = async function (UID) {
     let findDoc = undefined
-    await Item.find({uid:UID},{__v: 0, uid: 0})
+    await Item.find({uid:UID},{__v: 0, uid: 0, picture: 0})
         .then((doc) => {
             findDoc = doc
         })
@@ -55,4 +58,20 @@ const initList = async function (UID) {
     return findDoc
 }
 
-module.exports = { addItem, initList, delItem }
+
+/**
+ * 按照给定的ID，获取对应的图片
+ * @param { String } id 文档的 _id
+ */
+const getPicture = async function (id) {
+    let picture
+    await Item.findOne({_id: id})
+        .then((res) => {
+            picture = res.picture
+        })
+        .catch((e) => {
+            console.error(e)
+        })
+    return picture
+}
+module.exports = { addItem, initList, delItem, getPicture }
